@@ -1,0 +1,40 @@
+.QuizList {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 100px 40px 140px;
+  flex-grow: 1;
+  width: 100%;
+  background: #1c1b20;
+}
+.QuizList h1 {
+  color: #fff;
+}
+.QuizList ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.QuizList li {
+  margin-bottom: 10px;
+}
+.QuizList a {
+  text-decoration: none;
+  color: #fff;
+}
+.QuizList a:hover {
+  color: #363f54;
+}
+.QuizList__wrapper {
+  width: 100%;
+  padding-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+}
+.QuizList__wrapper ul {
+  width: 100%;
+  grid-column-gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 300px));
+}
