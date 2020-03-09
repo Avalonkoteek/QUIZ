@@ -12,7 +12,7 @@ const ActiveQuiz = props => (
         {props.answerNumber} из {props.quizLength}
       </small>
     </div>
-    {console.log(props)}
+
     <AnswersList
       state={props.state}
       answers={props.answers}

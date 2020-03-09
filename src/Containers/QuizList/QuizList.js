@@ -1,14 +1,13 @@
 import React from "react";
 import "./QuizList.css";
 import MiniQuiz from "../../Components/miniQuiz/miniQuiz";
-import { NavLink } from "react-router-dom";
+
 import Loader from "../../Components/UI/Loader/Loader";
 import { connect } from "react-redux";
 import { fetchQuizes } from "../../store/actions/quiz";
 
 class QuizList extends React.Component {
   renderQuizes() {
-    console.log(this.props.quizes);
     return this.props.quizes.map(quiz => {
       return (
         <MiniQuiz
