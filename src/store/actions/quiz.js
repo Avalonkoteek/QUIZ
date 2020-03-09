@@ -18,12 +18,11 @@ export function fetchQuizes() {
     try {
       const response = await axios.get("/quizes.json");
       const quizes = [];
-
       Object.keys(response.data).forEach((key, index) => {
         quizes.push({
           id: key,
-          name: `Кто ты из игры престолов`,
-          author: "koteek"
+          title: response.data[key].title,
+          author: response.data[key].author
         });
       });
 
@@ -40,7 +39,7 @@ export function fetchQuizById(quizId) {
 
     try {
       const response = await axios.get(`/quizes/${quizId}.json`);
-      const quiz = response.data;
+      const quiz = response.data.quiz;
       dispatch(fetchQuizSuccess(quiz));
     } catch (e) {
       dispatch(fetchQuizesError(e));

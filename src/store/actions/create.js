@@ -1,10 +1,24 @@
-import { CREATE_QUIZ_QUESTION, RESET_QUIZ_CREATION } from "./actionTypes";
+import {
+  CREATE_QUIZ_QUESTION,
+  RESET_QUIZ_CREATION,
+  CREATE_QUIZ
+} from "./actionTypes";
 import axios from "../../axios/axios-quiz";
 
-export function createQuizQuestion(item) {
+export function createQuizQuestion(item, author, title) {
+  const quizItem = {
+    quiz: item,
+    title,
+    author
+  };
   return {
     type: CREATE_QUIZ_QUESTION,
-    item
+    quizItem
+  };
+}
+export function createQuiz() {
+  return {
+    type: CREATE_QUIZ
   };
 }
 
@@ -16,7 +30,7 @@ export function resetQuizCreation() {
 
 export function finishCreateQuiz() {
   return async (dispatch, getState) => {
-    await axios.post("/quizes.json", getState().create.quiz);
+    await axios.post("/quizes.json", getState().create.quizItem);
     dispatch(resetQuizCreation());
   };
 }

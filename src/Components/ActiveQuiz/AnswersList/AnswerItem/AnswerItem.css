@@ -1,14 +1,15 @@
 .AnswerItem {
-  border: 1px solid white;
-  border-radius: 5px;
-  padding: 5px 10px;
+  border: 1px solid #635a86;
+
+  padding: 15px 20px;
   margin-bottom: 5px;
   cursor: pointer;
   list-style: none;
+  transition: all 0.3s ease;
 }
 .AnswerItem:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transition: background 0.3s ease-in-out;
+  background: rgba(99, 90, 134, 0.8);
+  transition: all 0.3s ease;
 }
 .AnswerItem.succes {
   background-color: rgba(161, 240, 69, 0.7);

@@ -117,8 +117,8 @@ class Auth extends React.Component {
   render() {
     return (
       <div className="Auth">
+        <h1>Авторизация</h1>
         <div>
-          <h1>Авторизация</h1>
           <form onSubmit={this.submitHandler} className="AuthForm">
             {this.renderInputs()}
             <Button
@@ -147,7 +147,4 @@ function mapDispatchToProps(dispatch) {
     auth: (email, password, isLogin) => dispatch(auth(email, password, isLogin))
   };
 }
-export default connect(
-  null,
-  mapDispatchToProps
-)(Auth);
+export default connect(null, mapDispatchToProps)(Auth);

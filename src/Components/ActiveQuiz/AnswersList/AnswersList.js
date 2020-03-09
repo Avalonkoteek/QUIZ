@@ -4,6 +4,7 @@ import AnswerItem from "./AnswerItem/AnswerItem";
 
 const AnswersList = props => (
   <ul className="AnswesList">
+    {console.log(props)}
     {props.answers.map((answer, index) => {
       return (
         <AnswerItem

@@ -7,11 +7,11 @@ const miniQuiz = props => {
       <NavLink to={"/quiz/" + props.quiz.id}>
         <div className="miniQuiz__left-line"></div>
         <div className="miniQuiz__wrapper">
-          <h2>Кто ты из игры престолов?</h2>
+          <h2>{props.title}</h2>
           <span>...</span>
           <div className="miniQuiz__author">
             <span>Автор:</span>
-            <p>Emma Anderson</p>
+            <p>{props.author}</p>
           </div>
         </div>
       </NavLink>

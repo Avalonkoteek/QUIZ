@@ -14,6 +14,7 @@ import {
   createQuizQuestion,
   finishCreateQuiz
 } from "../../store/actions/create";
+import { NavLink } from "react-router-dom";
 
 function createOptionControl(number) {
   return createControl(
@@ -41,18 +42,38 @@ function createFormControls() {
     option4: createOptionControl(4)
   };
 }
-
+// CLASS ---------------------------------------------------------------------------------------->
 class QuizCreator extends Component {
+  // STATE -------------------------------------------------------------------------------------->
   state = {
     isFormValid: false,
     rightAnswerId: 1,
-    formControls: createFormControls()
+    formControls: createFormControls(),
+    titleOfTest: "",
+    author: "",
+    isQuizStart: false,
+    isQuizFinished: false
   };
 
-  sibmitHandler = event => {
-    event.preventDefault();
+  // Start -------------------------------------------------------------------------------------->
+  changeHandlerStart = (value, type) => {
+    if (type === "titleOfTest") {
+      this.setState({
+        titleOfTest: value
+      });
+    } else {
+      this.setState({
+        author: value
+      });
+    }
+  };
+  submitStartQuizHandler = () => {
+    this.setState({
+      isQuizStart: true
+    });
   };
 
+  // ADD QUESTION ------------------------------------------------------------------------------->
   addQuestionHandler = event => {
     event.preventDefault();
 
@@ -66,7 +87,7 @@ class QuizCreator extends Component {
 
     const questionItem = {
       question: question.value,
-      id: this.props.quiz.length + 1,
+      id: this.props.quizItem.quiz.length + 1,
       rightAnswerId: this.state.rightAnswerId,
       answers: [
         { text: option1.value, id: option1.id },
@@ -75,8 +96,11 @@ class QuizCreator extends Component {
         { text: option4.value, id: option4.id }
       ]
     };
-
-    this.props.createQuizQuestion(questionItem);
+    this.props.createQuizQuestion(
+      questionItem,
+      this.state.author,
+      this.state.titleOfTest
+    );
 
     this.setState({
       isFormValid: false,
@@ -85,17 +109,7 @@ class QuizCreator extends Component {
     });
   };
 
-  createQuizHandler = event => {
-    event.preventDefault();
-
-    this.setState({
-      isFormValid: false,
-      rightAnswerId: 1,
-      formControls: createFormControls()
-    });
-    this.props.finishCreateQuiz();
-  };
-
+  // CHANGE INPUTS ------------------------------------------------------------------------------>
   changeHandler = (value, controlName) => {
     const formControls = { ...this.state.formControls };
     const control = { ...formControls[controlName] };
@@ -111,7 +125,35 @@ class QuizCreator extends Component {
       isFormValid: validateForm(formControls)
     });
   };
+  selectChangeHandler = event => {
+    this.setState({
+      rightAnswerId: +event.target.value
+    });
+  };
 
+  // END ----------------------------------------------------------------------------->
+  submitHandler = event => {
+    event.preventDefault();
+  };
+  createQuizHandler = event => {
+    event.preventDefault();
+
+    this.setState({
+      isFormValid: false,
+      rightAnswerId: 1,
+      formControls: createFormControls(),
+      isQuizFinished: true
+    });
+    this.props.finishCreateQuiz();
+  };
+  endCreateQuizHandler = () => {
+    // this.setState({
+    //   isQuizStart: false,
+    //   isQuizFinished: false
+    // });
+  };
+
+  // RENDER ELEMENTS----------------------------------------------------------------------------->
   renderControls() {
     return Object.keys(this.state.formControls).map((controlName, index) => {
       const control = this.state.formControls[controlName];
@@ -129,20 +171,12 @@ class QuizCreator extends Component {
               this.changeHandler(event.target.value, controlName)
             }
           />
-          {index === 0 ? <hr /> : null}
         </Auxiliary>
       );
     });
   }
-
-  selectChangeHandler = event => {
-    this.setState({
-      rightAnswerId: +event.target.value
-    });
-  };
-
-  render() {
-    const select = (
+  renderSelect() {
+    return (
       <Select
         label="Выберите правильный ответ"
         value={this.state.rightAnswerId}
@@ -155,16 +189,70 @@ class QuizCreator extends Component {
         ]}
       />
     );
-
+  }
+  renderStartWindow() {
+    return (
+      <div className="QuizCreator__start-wrapper">
+        <Input
+          label="Название теста"
+          value={this.state.titleOfTest}
+          valid={true}
+          shouldValidate={true}
+          touched={true}
+          errorMessage="dddd"
+          onChange={event =>
+            this.changeHandlerStart(event.target.value, "titleOfTest")
+          }
+        />
+        <Input
+          label="Автор теста"
+          value={this.state.author}
+          valid={true}
+          shouldValidate={true}
+          touched={true}
+          errorMessage="dddd"
+          onChange={event =>
+            this.changeHandlerStart(event.target.value, "author")
+          }
+        />
+        <Button
+          type="primary"
+          onClick={this.submitStartQuizHandler}
+          disabled={false}
+        >
+          Далее
+        </Button>
+      </div>
+    );
+  }
+  renderEndWindow() {
+    return (
+      <div className="QuizCreator__end-wrapper">
+        <div>Готово, тест создан</div>
+        <NavLink to="/">
+          <Button
+            onClick={() => {
+              this.endCreateQuizHandler();
+            }}
+          >
+            К списку тестов
+          </Button>
+        </NavLink>
+      </div>
+    );
+  }
+  // RENDER ----------------------------------------------------------------------------->
+  render() {
     return (
       <div className="QuizCreator">
+        <h1>Создание теста</h1>
         <div>
-          <h1>Создание теста</h1>
-
+          {!this.state.isQuizStart ? this.renderStartWindow() : null}
+          {this.state.isQuizFinished ? this.renderEndWindow() : null}
           <form onSubmit={this.submitHandler}>
             {this.renderControls()}
 
-            {select}
+            {this.renderSelect()}
 
             <Button
               type="primary"
@@ -177,7 +265,7 @@ class QuizCreator extends Component {
             <Button
               type="success"
               onClick={this.createQuizHandler}
-              disabled={this.props.quiz.length === 0}
+              disabled={this.props.quizItem.quiz.length === 0}
             >
               Создать тест
             </Button>
@@ -190,18 +278,16 @@ class QuizCreator extends Component {
 
 function mapStateToProps(state) {
   return {
-    quiz: state.create.quiz
+    quizItem: state.create.quizItem
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    createQuizQuestion: item => dispatch(createQuizQuestion(item)),
+    createQuizQuestion: (item, author, title) =>
+      dispatch(createQuizQuestion(item, author, title)),
     finishCreateQuiz: () => dispatch(finishCreateQuiz())
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(QuizCreator);
+export default connect(mapStateToProps, mapDispatchToProps)(QuizCreator);

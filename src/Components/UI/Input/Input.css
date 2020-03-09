@@ -1,6 +1,6 @@
 .Input {
   margin-bottom: 45px;
-  max-width: 600px;
+  width: 600px;
 }
 .Input label {
   margin-bottom: 3px;
@@ -19,12 +19,18 @@
   width: 100%;
   outline: none;
   transition: all 0.3s ease-in-out;
+  position: relative;
+  color: #999999;
+  font-size: 16px;
+  border-bottom: 2px solid #635a86;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
+
 .Input span {
-  color: #f01f30;
-  font-size: 12px;
-  font-weight: bold;
+  color: #ec6e6e;
+  font-size: 16px;
+  font-weight: light;
 }
 .Input.invalid label {
-  color: #f01f30;
+  color: #ec6e6e;
 }

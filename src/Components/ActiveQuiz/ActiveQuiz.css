@@ -1,13 +1,20 @@
 .ActiveQuiz {
-  padding: 20px;
+  padding: 60px;
   color: #fff;
-  border: 2px solid white;
-  border-radius: 5px;
-  margin: 0 10px;
-  box-sizing: border-box;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  min-width: 600px;
+  width: 100%;
 }
 .Question {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
+}
+.Question div {
+  color: #999999;
+}
+.Question div > span {
+  color: #fff;
+  font-size: 1.2em;
+  padding-left: 5px;
 }

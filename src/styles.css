@@ -1,4 +1,11 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap&subset=cyrillic");
+html {
+  font-family: "Roboto", sans-serif;
+}
 .App {
-  font-family: sans-serif;
   text-align: center;
+}
+h1 {
+  font-style: normal;
+  font-weight: 500;
 }

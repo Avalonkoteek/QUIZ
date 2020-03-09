@@ -1,10 +1,9 @@
 .FinishedQuiz {
-  padding: 20px;
+  padding: 60px 0px;
   color: #fff;
-  border: 2px solid #fff;
-  border-radius: 5px;
-  box-sizing: border-box;
-  margin: 0 5px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  min-width: 600px;
+  width: 100%;
 }
 .FinishedQuiz ul {
   list-style: none;
@@ -12,11 +11,14 @@
   margin: 0;
 }
 .FinishedQuiz ul li {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .FinishedQuiz__error {
   color: red;
 }
 .FinishedQuiz__success {
   color: greenyellow;
+}
+.FinishedQuiz p {
+  margin-bottom: 40px;
 }

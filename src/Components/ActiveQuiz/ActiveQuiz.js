@@ -4,14 +4,15 @@ import AnswersList from "./AnswersList/AnswersList";
 
 const ActiveQuiz = props => (
   <div className="ActiveQuiz">
-    <p className="Question">
-      <span>
-        <strong>1</strong>&nbsp; {props.question}
-      </span>
+    <div className="Question">
+      <div>
+        Вопрос: <span>{props.question}</span>
+      </div>
       <small>
         {props.answerNumber} из {props.quizLength}
       </small>
-    </p>
+    </div>
+    {console.log(props)}
     <AnswersList
       state={props.state}
       answers={props.answers}

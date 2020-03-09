@@ -20,8 +20,8 @@ class Quiz extends React.Component {
   render() {
     return (
       <div className="Quiz">
+        <h1>Ответьте на все вопросы</h1>
         <div className="QuizWrapper">
-          <h1>Ответьте на все вопросы</h1>
           {this.props.loading || !this.props.quiz ? (
             <Loader />
           ) : this.props.isFinished ? (
@@ -63,7 +63,4 @@ function mapDispatchToProps(dispatch) {
     retryQuiz: () => dispatch(retryQuiz())
   };
 }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Quiz);
+export default connect(mapStateToProps, mapDispatchToProps)(Quiz);

@@ -10,7 +10,14 @@ class QuizList extends React.Component {
   renderQuizes() {
     console.log(this.props.quizes);
     return this.props.quizes.map(quiz => {
-      return <MiniQuiz key={quiz.id} quiz={quiz} />;
+      return (
+        <MiniQuiz
+          key={quiz.id}
+          title={quiz.title}
+          author={quiz.author}
+          quiz={quiz}
+        />
+      );
     });
   }
   // Получаем тесты с базы данных
